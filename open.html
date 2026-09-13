@@ -2,6 +2,10 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<!-- 카카오톡 등 일부 인앱 브라우저(WebView)가 <meta charset>만으로는 UTF-8을
+     제대로 인식하지 못하고 한글을 깨진 글자(□?)로 렌더링하는 경우가 있어서,
+     구식 http-equiv 형식으로 한 번 더 명시해준다. -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>하루한줄</title>
 <style>
