@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>하루한줄</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #F3ECDF;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  }
+  .wrap {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .mark { width: 48px; height: 48px; margin-bottom: 22px; }
+  h1 { font-size: 20px; color: #3A2E22; margin: 0 0 8px; }
+  p { font-size: 14px; color: #8A785D; margin: 0 0 30px; line-height: 1.6; }
+  a.btn {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    padding: 15px 0;
+    border-radius: 14px;
+    background: #A8562E;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 14px;
+  }
+  a.sub { font-size: 13px; color: #8A785D; text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <svg class="mark" viewBox="0 0 240 240">
+    <path d="M56 132 C92 92 150 150 186 104" fill="none" stroke="#A8562E" stroke-width="16" stroke-linecap="round"/>
+  </svg>
+  <h1>하루한줄</h1>
+  <p>매일 한 줄의 위로.<br>하루한줄 앱에서 이어서 볼까요?</p>
+  <a class="btn" id="open-app" href="kindline://open">하루한줄 앱에서 열기</a>
+  <a class="sub" id="app-store" href="https://apps.apple.com/app/id6807814074">앱이 없으신가요? 앱스토어에서 받기</a>
+</div>
+<script>
+(function () {
+  var APP_SCHEME = 'kindline://open';
+  var STORE_URL = 'https://apps.apple.com/app/id6807814074';
+  var redirected = false;
+
+  function goToStore() {
+    if (redirected) return;
+    redirected = true;
+    window.location.href = STORE_URL;
+  }
+
+  // 앱으로 실제로 넘어가면(백그라운드 전환) 스토어 이동은 취소한다.
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { redirected = true; }
+  });
+
+  // 페이지 진입 시 자동으로 한 번 시도한다. (일부 인앱 브라우저는 사용자가
+  // 직접 버튼을 눌러야 커스텀 스킴을 허용하므로, 화면의 버튼도 함께 남겨둔다.)
+  window.location.href = APP_SCHEME;
+  setTimeout(function () {
+    if (!document.hidden) { goToStore(); }
+  }, 1500);
+})();
+</script>
+</body>
+</html>
